@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToJSONConverterWebApi", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToJSONConverterTest", "XmlToJSONConverterTest\XmlToJSONConverterTest.csproj", "{52312703-A62D-4D5E-B5A9-1E06F8CD070D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{7B4A6145-63AC-4962-A4C2-F807DB147CD0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{30E69424-A35D-404B-8FDC-DC6A005F561C}"
 	ProjectSection(SolutionItems) = preProject
-		..\xmlToJsonConverter - susiak\Database\createScript.sql = ..\xmlToJsonConverter - susiak\Database\createScript.sql
+		Database\createScript.sql = Database\createScript.sql
 	EndProjectSection
 EndProject
 Global
