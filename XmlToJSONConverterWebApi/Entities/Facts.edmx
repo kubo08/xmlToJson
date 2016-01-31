@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FactsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FactEvents">
+          <Key>
+            <PropertyRef Name="opta_event_id" />
+          </Key>
+          <Property Name="FactID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="opta_event_id" Type="bigint" Nullable="false" />
+          <Property Name="fixture_id" Type="bigint" Nullable="false" />
+          <Property Name="away_score" Type="smallint" />
+          <Property Name="home_score" Type="smallint" />
+          <Property Name="period" Type="varchar" MaxLength="30" />
+          <Property Name="timestamp" Type="datetime" />
+          <Property Name="timestamp_milliseconds" Type="varchar" MaxLength="3" />
+          <Property Name="period_id" Type="smallint" />
+          <Property Name="period_minute" Type="tinyint" />
+          <Property Name="period_second" Type="tinyint" />
+          <Property Name="player_id" Type="bigint" />
+          <Property Name="event_id" Type="smallint" />
+          <Property Name="event_type_id" Type="smallint" />
+          <Property Name="event_type_name" Type="varchar" MaxLength="30" />
+          <Property Name="team_id" Type="bigint" Nullable="false" />
+          <Property Name="outcome" Type="smallint" />
+          <Property Name="game_status" Type="varchar" MaxLength="30" />
+          <Property Name="timer_running" Type="tinyint" />
+          <Property Name="direction" Type="varchar" MaxLength="13" />
+          <Property Name="direction_of_play_x" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="direction_of_play_y" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="x" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="y" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="last_modified" Type="datetime" />
+          <Property Name="related_event_id" Type="int" />
+          <Property Name="gameAdditional" Type="varchar(max)" />
+          <Property Name="eventAdditional" Type="varchar(max)" />
+          <Property Name="created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Qualifiers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="value" Type="nvarchar" MaxLength="50" />
+          <Property Name="qualifier_id" Type="bigint" />
+          <Property Name="event_id" Type="bigint" />
+          <Property Name="qualifierAdditional" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_Qualifiers_FactEvents">
+          <End Role="FactEvents" Type="Self.FactEvents" Multiplicity="0..1" />
+          <End Role="Qualifiers" Type="Self.Qualifiers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FactEvents">
+              <PropertyRef Name="opta_event_id" />
+            </Principal>
+            <Dependent Role="Qualifiers">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="FactsModelStoreContainer">
+          <EntitySet Name="FactEvents" EntityType="Self.FactEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qualifiers" EntityType="Self.Qualifiers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Qualifiers_FactEvents" Association="Self.FK_Qualifiers_FactEvents">
+            <End Role="FactEvents" EntitySet="FactEvents" />
+            <End Role="Qualifiers" EntitySet="Qualifiers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FactsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FactsEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="FactEvents" EntityType="FactsModel.FactEvent" />
+          <EntitySet Name="Qualifiers" EntityType="FactsModel.Qualifier" />
+          <AssociationSet Name="FK_Qualifiers_FactEvents" Association="FactsModel.FK_Qualifiers_FactEvents">
+            <End Role="FactEvent" EntitySet="FactEvents" />
+            <End Role="Qualifier" EntitySet="Qualifiers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FactEvent">
+          <Key>
+            <PropertyRef Name="opta_event_id" />
+          </Key>
+          <Property Name="FactID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="opta_event_id" Type="Int64" Nullable="false" />
+          <Property Name="fixture_id" Type="Int64" Nullable="false" />
+          <Property Name="away_score" Type="Int16" />
+          <Property Name="home_score" Type="Int16" />
+          <Property Name="period" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Precision="3" />
+          <Property Name="timestamp_milliseconds" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="period_id" Type="Int16" />
+          <Property Name="period_minute" Type="Byte" />
+          <Property Name="period_second" Type="Byte" />
+          <Property Name="player_id" Type="Int64" />
+          <Property Name="event_id" Type="Int16" />
+          <Property Name="event_type_id" Type="Int16" />
+          <Property Name="event_type_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="team_id" Type="Int64" Nullable="false" />
+          <Property Name="outcome" Type="Int16" />
+          <Property Name="game_status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="timer_running" Type="Byte" />
+          <Property Name="direction" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="direction_of_play_x" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="direction_of_play_y" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="x" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="y" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="last_modified" Type="DateTime" Precision="3" />
+          <Property Name="related_event_id" Type="Int32" />
+          <Property Name="gameAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="eventAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Qualifiers" Relationship="FactsModel.FK_Qualifiers_FactEvents" FromRole="FactEvent" ToRole="Qualifier" />
+        </EntityType>
+        <EntityType Name="Qualifier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="qualifier_id" Type="Int64" />
+          <Property Name="event_id" Type="Int64" />
+          <Property Name="qualifierAdditional" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FactEvent" Relationship="FactsModel.FK_Qualifiers_FactEvents" FromRole="Qualifier" ToRole="FactEvent" />
+        </EntityType>
+        <Association Name="FK_Qualifiers_FactEvents">
+          <End Type="FactsModel.FactEvent" Role="FactEvent" Multiplicity="0..1" />
+          <End Type="FactsModel.Qualifier" Role="Qualifier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FactEvent">
+              <PropertyRef Name="opta_event_id" />
+            </Principal>
+            <Dependent Role="Qualifier">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FactsModelStoreContainer" CdmEntityContainer="FactsEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="FactsModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="FactsModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="FactsModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="FactsModel.Store.sp_helpdiagramdefinition" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="FactsModel.Store.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="FactsModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="FactsModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="FactEvents">
+            <EntityTypeMapping TypeName="FactsModel.FactEvent">
+              <MappingFragment StoreEntitySet="FactEvents">
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="eventAdditional" ColumnName="eventAdditional" />
+                <ScalarProperty Name="gameAdditional" ColumnName="gameAdditional" />
+                <ScalarProperty Name="related_event_id" ColumnName="related_event_id" />
+                <ScalarProperty Name="last_modified" ColumnName="last_modified" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="direction_of_play_y" ColumnName="direction_of_play_y" />
+                <ScalarProperty Name="direction_of_play_x" ColumnName="direction_of_play_x" />
+                <ScalarProperty Name="direction" ColumnName="direction" />
+                <ScalarProperty Name="timer_running" ColumnName="timer_running" />
+                <ScalarProperty Name="game_status" ColumnName="game_status" />
+                <ScalarProperty Name="outcome" ColumnName="outcome" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="event_type_name" ColumnName="event_type_name" />
+                <ScalarProperty Name="event_type_id" ColumnName="event_type_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="player_id" ColumnName="player_id" />
+                <ScalarProperty Name="period_second" ColumnName="period_second" />
+                <ScalarProperty Name="period_minute" ColumnName="period_minute" />
+                <ScalarProperty Name="period_id" ColumnName="period_id" />
+                <ScalarProperty Name="timestamp_milliseconds" ColumnName="timestamp_milliseconds" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="home_score" ColumnName="home_score" />
+                <ScalarProperty Name="away_score" ColumnName="away_score" />
+                <ScalarProperty Name="fixture_id" ColumnName="fixture_id" />
+                <ScalarProperty Name="opta_event_id" ColumnName="opta_event_id" />
+                <ScalarProperty Name="FactID" ColumnName="FactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualifiers">
+            <EntityTypeMapping TypeName="FactsModel.Qualifier">
+              <MappingFragment StoreEntitySet="Qualifiers">
+                <ScalarProperty Name="qualifierAdditional" ColumnName="qualifierAdditional" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="qualifier_id" ColumnName="qualifier_id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
